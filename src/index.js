@@ -14,9 +14,16 @@ fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=g")
     // Log the total number of object return
     console.log("total number of drinks are", fancyDrinks.length);
     // For each cocktail object (console.log) its name
+  
+    const alcholicdrinks = fancyDrinks.filter(drink=> drink.strAlcoholic == "Alcoholic")
+   console.log("Alcholic drinks are")
+    alcholicdrinks.forEach(logDrink)
 
-   fancyDrinks.forEach(drink => console.log("Drink Id",drink.id,"is called",drink.name,"and is made with",drink.ingredients))
+    const nonAlcholicdrinks = fancyDrinks.filter(drink=> drink.strAlcoholic != "Alcoholic")
+   console.log("Nonalcholic drinks are")
+    nonAlcholicdrinks.forEach(logDrink)
   })
+
 
   .catch((e) => console.error(e));
 
@@ -33,8 +40,16 @@ fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=g")
     const array = []
     let i = 1
     while (drink['strIngredient'+ i]!= null){
-      array.push(drink['strIngredient'+ i])
+      array.push({
+        name: drink['strIngredient'+ i],
+        quantity:drink['strMeasure'+ i],
+      })
       i++
     }
     return array ;
+  }
+
+  const logDrink =(drink)=>{
+    console.log("Drink Id",drink.id,"is called",drink.name,"and is made with",drink.ingredients)
+
   }

@@ -3,13 +3,17 @@ const fetch = require("node-fetch");
 fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=g")
   .then((response) => response.json())
   .then((data) => {
+    // filter drinks which have four or more ingredients
+    const fancyDrinks = data.drinks.filter((drink) => {
+      if (drink.strIngredient4 != null) return true;
+    });
     // Log the total number of object return
-    console.log("total number of drinks are", data.drinks.length);
+    console.log("total number of drinks are", fancyDrinks.length);
     // For each cocktail object (console.log) its name
 
     console.log(
       "All names are",
-      data.drinks.map((drink) => drink.strDrink)
+      fancyDrinks.map((drink) => drink.strDrink)
     );
   })
 
